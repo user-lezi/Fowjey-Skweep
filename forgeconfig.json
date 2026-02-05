@@ -1,0 +1,7 @@
+{
+  "urls": [
+    "github:tryforge/forgescript#dev",
+    "github:tryforge/forgecanvas#dev"
+  ],
+  "multiple_function_colors": true
+}

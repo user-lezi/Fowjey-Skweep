@@ -1,0 +1,34 @@
+{
+  "name": "fowjey-skweep",
+  "version": "1.0.0",
+  "description": "Rip-off fr",
+  "keywords": [
+    "forgescript"
+  ],
+  "homepage": "https://github.com/user-lezi/Fowjey-Skweep#readme",
+  "bugs": {
+    "url": "https://github.com/user-lezi/Fowjey-Skweep/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/user-lezi/Fowjey-Skweep.git"
+  },
+  "license": "MIT",
+  "author": "lezii",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "prettier src -w && tsc",
+    "test": "node dist/index.js"
+  },
+  "dependencies": {
+    "@tryforge/forge.canvas": "github:TryForge/forgecanvas#dev",
+    "@tryforge/forgescript": "github:TryForge/forgescript#dev",
+    "@types/node": "^24.2.0",
+    "chalk": "^4.1.2",
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  }
+}
