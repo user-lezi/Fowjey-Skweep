@@ -1,21 +1,30 @@
-import { BaseCommand } from "@tryforge/forgescript";
-
-export default new BaseCommand({
-  type: "messageCreate",
-  name: "transform",
-  aliases: ["cr7"],
-  code: `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const forgescript_1 = require("@tryforge/forgescript");
+exports.default = new forgescript_1.BaseCommand({
+    type: "messageCreate",
+    name: "morph",
+    code: `
   $let[srcUser;$authorID]
   $let[trgUser;$findUser[$message]]
   $if[$get[trgUser]==$get[srcUser];$let[trgUser;]]
 
+  $let[progressContent;> *$randomtext[🧬 Reconstructing reality...;🎨 Rearranging pixels like a perfectionist...]*]
+  $fn[progress;
+    $let[content;$get[progressContent]\n> $bar[$env[current];100;12;⬜;⬛] **$round[$env[current];2]%**]
+    $if[$env[id]==;
+      $let[id;$sendMessage[$channelID;$reply $get[content];true]];
+      $editMessage[$channelID;$get[id];$get[content]]
+    ]
+    $return[$wait[1000]$get[id]]
+  ;current;id]
+  $let[progressMessageID;$callFn[progress;$randomNumber[1;10;true];]]
+
   $c[ Constants ]
-  $let[size;400]
-  $let[frames;24]
+  $let[size;512]
+  $let[frames;30]
   $let[srcImg;$userAvatar[$get[srcUser];1024;png]]
   $let[trgImg;$if[$get[trgUser]==;https://images2.imgbox.com/9d/32/fyedGEQR_o.jpg;$userAvatar[$get[trgUser];1024;png]]]
-
-  $!sendMessage[$channelID;> Generating...]
 
   $c[ Extract Source Image Pixels & Target Positions ]
   $arrayCreate[srcPixels]
@@ -44,9 +53,12 @@ export default new BaseCommand({
       }
     }
   ]
+  $!callFn[progress;$randomNumber[30;45;true];$get[progressMessageID]]
 
   $c[ Sort both by color similarity ]
   $!djsEval[ctx.setEnvironmentKey("srcPixels", ctx.getEnvironmentKey("srcPixels").sort((a, b) => a.key - b.key));ctx.setEnvironmentKey("trgPositions", ctx.getEnvironmentKey("trgPositions").sort((a, b) => a.key - b.key))]
+  $!callFn[progress;$randomNumber[50;60;true];$get[progressMessageID]]
+
 
   $c[ Moing pixels ]
   $let[i;0]
@@ -63,9 +75,11 @@ export default new BaseCommand({
       }))
     );
   ]
+  $!callFn[progress;$randomNumber[65;80;true];$get[progressMessageID]]
+
   $c[ GIF ]
   $newGIFEncoder[gif;$get[size];$get[size];;
-    $setGIFEncoderLoops[;2]
+    $setGIFEncoderLoops[;0]
   ]
   $createCanvas[frame;$get[size];$get[size];
     $drawImage[;canvas://srcCanvas;0;0;$get[size];$get[size]]
@@ -76,21 +90,24 @@ export default new BaseCommand({
     $!djsEval[
       const canvas = ctx.canvasManager.get("frame");
       const lerp = (a,b,t) => a+ (b-a)*t;
-      const t = +ctx.getKeyword("t");
+      let t = +ctx.getKeyword("t");
+      t = t*t*(3-2*t);
       ctx.getEnvironmentKey("moving").forEach(p => {
         let x = Math.round(lerp(p.startX, p.endX, t))
         let y = Math.round(lerp(p.startY, p.endY, t))
         canvas.ctx.fillStyle = p.color;
-        canvas.ctx.fillRect(x-0.5,y-0.5,1.5,1.5)
+        canvas.ctx.fillRect(x-0.5,y-0.5,2,2)
       });
     ]
-    $addFrame[gif;canvas://frame;{ "delay": 20 }]
+    $addFrame[gif;canvas://frame]
   ;frame;true]
-
+  $!callFn[progress;100;$get[progressMessageID]]
 
   $sendMessage[$channelID;
-    > Transforming <@$get[srcUser]> to $if[$get[trgUser]==;**SUIIIIY MAN**;<@$get[trgUser]>]
-    $attachGIF[gif]
+    $reply[$channelID;$get[progressMessageID]]
+    ## Morphing <@$get[srcUser]> to $if[$get[trgUser]==;**SUIIIIY MAN**;<@$get[trgUser]>]
+    $attachGIF[gif;morph.gif]
+    $attachCanvas[frame;morph.png]
   ]
   `,
 });
