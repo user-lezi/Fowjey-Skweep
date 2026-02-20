@@ -2,8 +2,9 @@
   "urls": [
     "github:tryforge/forgescript#dev",
     "github:tryforge/forgecanvas#dev",
+    "github:tryforge/forgedb#dev",
     "github:user-lezi/forgecolor#dev",
-    "github:user-lezi/forgeuser#dev"
+    "github:weebforge/forgechess#dev"
   ],
   "multiple_function_colors": true,
   "consistent_function_colors": true,

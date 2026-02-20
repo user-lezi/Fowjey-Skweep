@@ -23,13 +23,15 @@
   },
   "dependencies": {
     "@tryforge/forge.canvas": "github:TryForge/forgecanvas#dev",
+    "@tryforge/forge.db": "github:tryforge/ForgeDB#dev",
     "@tryforge/forgescript": "github:TryForge/forgescript#dev",
     "@types/node": "^24.2.0",
+    "@weebforge/chess": "github:weebforge/forgechess#dev",
+    "better-sqlite3": "^12.6.2",
     "chalk": "^4.1.2",
     "discord.js": "^14.21.0",
     "dotenv": "^17.2.1",
     "forge.color": "github:user-lezi/forgecolor#dev",
-    "forge.user": "github:user-lezi/forgeuser#dev",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2"
   }
