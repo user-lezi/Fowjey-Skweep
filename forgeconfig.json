@@ -6,6 +6,7 @@
     "github:user-lezi/forgecolor#dev",
     "github:weebforge/forgechess#dev"
   ],
+  "custom_functions_path": "src/functions",
   "multiple_function_colors": true,
   "consistent_function_colors": true,
   "log_level": "info",

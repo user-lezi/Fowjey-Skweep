@@ -25,6 +25,7 @@ const client = new ForgeClient({
   prefixes: [process.env.Prefix!, "~"],
 });
 
+client.functions.load("dist/functions");
 client.commands.load("dist/commands");
 db.commands.load("dist/extensions/db");
 

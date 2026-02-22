@@ -23,6 +23,7 @@ const client = new forgescript_1.ForgeClient({
     logLevel: forgescript_1.LogPriority.High,
     prefixes: [process.env.Prefix, "~"],
 });
+client.functions.load("dist/functions");
 client.commands.load("dist/commands");
 db.commands.load("dist/extensions/db");
 client.login(process.env.BotToken);
